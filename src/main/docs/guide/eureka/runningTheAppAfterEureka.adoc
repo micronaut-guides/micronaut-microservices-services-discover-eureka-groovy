@@ -1,0 +1,47 @@
+Run the eureka server:
+
+`eureka $ ./gradle bootRun`
+
+Run `bookcatalogue` microservice:
+
+[source,bash]
+----
+bookcatalogue $ ./gradlew run
+...
+> Task :bookcatalogue:run
+14:28:34.034 [main] INFO  io.micronaut.runtime.Micronaut - Startup completed in 499ms. Server Running: http://localhost:8081
+----
+
+Run `bookinventory` microservice:
+
+[source,bash]
+----
+bookinventory $ ./gradlew run
+...
+ > Task :bookcatalogue:run
+ 14:31:13.104 [main] INFO  io.micronaut.runtime.Micronaut - Startup completed in 499ms. Server Running: http://localhost:8082
+----
+
+Run `bookrecommendation` microservice:
+
+[source,bash]
+----
+bookrecommendation $ ./gradlew run
+...
+> Task :bookrecommendation:run
+14:31:57.389 [main] INFO  io.micronaut.runtime.Micronaut - Startup completed in 523ms. Server Running: http://localhost:8080
+----
+
+Open http://localhost:8761[http://localhost:8761] in your browser.
+
+You will see the services registered in Eureka:
+
+image::eurekaui.png[]
+
+You can run a cURL command to test the whole application:
+
+[source, bash]
+----
+$ curl http://localhost:8080/books
+[{"name":"Building Microservices"}
+----

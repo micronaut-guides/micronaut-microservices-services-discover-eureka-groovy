@@ -1,0 +1,118 @@
+Create the `bookrecommendation` microservice:
+
+`mn create-app --lang groovy example.micronaut.bookrecommendation.bookrecommendation`
+
+The previous command creates a folder named `bookrecommendation` and a Micronaut app inside it with
+default package: `example.micronaut.bookrecommendation`.
+
+Create an interface to map operations with `bookcatalogue` and a Micronaut Declarative HTTP Client to consume it.
+
+[source,groovy]
+.bookrecommendation/src/main/groovy/example/micronaut/bookrecommendation/BookCatalogueOperations.groovy
+----
+include::{sourceDir}/bookrecommendation/src/main/groovy/example/micronaut/bookrecommendation/BookCatalogueOperations.groovy[]
+----
+
+[source,groovy]
+.bookrecommendation/src/main/groovy/example/micronaut/bookrecommendation/BookCatalogueClient.groovy
+----
+include::{sourceDir}/bookrecommendation/src/main/groovy/example/micronaut/bookrecommendation/BookCatalogueClient.groovy[tag=packageandimports]
+
+include::{sourceDir}/bookrecommendation/src/main/groovy/example/micronaut/bookrecommendation/BookCatalogueClient.groovy[tag=harcoded]
+include::{sourceDir}/bookrecommendation/src/main/groovy/example/micronaut/bookrecommendation/BookCatalogueClient.groovy[tag=clazz]
+----
+
+<1> Use `@Client` to use https://docs.micronaut.io/snapshot/guide/index.html#clientAnnotation[declarative HTTP Clients]
+
+The client returns a POJO. Create it in the `bookrecommendation`:
+[source,groovy]
+.bookrecommendation/src/main/groovy/example/micronaut/bookrecommendation/Book.groovy
+----
+include::{sourceDir}/bookrecommendation/src/main/groovy/example/micronaut/bookrecommendation/Book.groovy[]
+----
+
+Create an interface to map operations with `bookinventory` and a Micronaut Declarative HTTP Client to consume it.
+
+[source,groovy]
+.bookrecommendation/src/main/groovy/example/micronaut/bookrecommendation/BookInventoryOperations.groovy
+----
+include::{sourceDir}/bookrecommendation/src/main/groovy/example/micronaut/bookrecommendation/BookInventoryOperations.groovy[]
+----
+
+[source,groovy]
+.bookrecommendation/src/main/groovy/example/micronaut/bookrecommendation/BookInventoryClient.groovy
+----
+include::{sourceDir}/bookrecommendation/src/main/groovy/example/micronaut/bookrecommendation/BookInventoryClient.groovy[tag=packageandimports]
+
+include::{sourceDir}/bookrecommendation/src/main/groovy/example/micronaut/bookrecommendation/BookInventoryClient.groovy[tag=harcoded]
+include::{sourceDir}/bookrecommendation/src/main/groovy/example/micronaut/bookrecommendation/BookInventoryClient.groovy[tag=clazz]
+----
+
+<1> Use `@Client` to use https://docs.micronaut.io/snapshot/guide/index.html#clientAnnotation[declarative HTTP Clients]
+
+Create a Controller which injects both clients.
+
+[source,groovy]
+.bookrecommendation/src/main/groovy/example/micronaut/bookrecommendation/BookController.groovy
+----
+include::{sourceDir}/bookrecommendation/src/main/groovy/example/micronaut/bookrecommendation/BookController.groovy[]
+----
+
+<1> The class is defined as a controller with the http://docs.micronaut.io/snapshot/api/io/micronaut/http/annotation/Controller.html[@Controller] annotation mapped to the path `/books`
+<2> Constructor injection
+<3> The `@Get` annotation is used to map the index method to `/books` requests that use an HTTP GET.
+
+The previous controller returns a `Flowable<BookRecommendation>`. Create the `BookRecommendation` POJO:
+
+[source,groovy]
+.bookrecommendation/src/main/groovy/example/micronaut/bookrecommendation/BookRecommendation.groovy
+----
+include::{sourceDir}/bookrecommendation/src/main/groovy/example/micronaut/bookrecommendation/BookRecommendation.groovy[]
+----
+
+`BookCatalogueClient` and `BookInventoryClient` will fail to consume the `bookcatalogue` and `bookinventory` during the tests phase.
+
+Using the https://docs.micronaut.io/snapshot/guide/index.html#clientFallback[@Fallback] annotation you can declare a fallback implementation of a client that will be picked up and used once all possible retries have been exhausted
+
+Create `@Fallback` alternatives in the `test` classpath.
+
+[source,groovy]
+.bookrecommendation/src/test/groovy/example/micronaut/bookrecommendation/BookInventoryClientStub.groovy
+----
+include::{sourceDir}/bookrecommendation/src/test/groovy/example/micronaut/bookrecommendation/BookInventoryClientStub.groovy[]
+----
+
+[source,groovy]
+.bookrecommendation/src/test/groovy/example/micronaut/bookrecommendation/BookCatalogueClientStub.groovy
+----
+include::{sourceDir}/bookrecommendation/src/test/groovy/example/micronaut/bookrecommendation/BookCatalogueClientStub.groovy[]
+----
+
+Write a test:
+
+[source,groovy]
+.bookrecommendation/src/test/groovy/example/micronaut/bookrecommendation/BookControllerSpec.groovy
+----
+include::{sourceDir}/bookrecommendation/src/test/groovy/example/micronaut/bookrecommendation/BookControllerSpec.groovy[]
+----
+
+Edit `application.yml`
+
+[source,yaml]
+.bookrecommendation/src/main/resources/application.yml
+----
+include::{sourceDir}/bookrecommendation/src/main/resources/application.yml[tag=mn]
+----
+
+<1> Configure the application name. The app name will be used later in the tutorial.
+<2> Configure the app to listen at port 8080
+
+Create a file named `application-test.yml` which is used in the test environment:
+
+[source,yaml]
+.bookrecommendation/src/main/resources/application-test.yml
+----
+include::{sourceDir}/bookrecommendation/src/main/resources/application-test.yml[tag=port]
+----
+
+<1> Start the micronaut microservice at a random port when running the tests.
