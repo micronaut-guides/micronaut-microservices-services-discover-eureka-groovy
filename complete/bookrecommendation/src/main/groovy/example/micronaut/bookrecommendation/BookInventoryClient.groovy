@@ -13,9 +13,9 @@ import javax.validation.constraints.NotBlank
 @Client("http://localhost:8082") // <1>
 //end::harcoded[]
 */
-//tag::consul[]
+//tag::eureka[]
 @Client(id = "bookinventory") // <1>
-//end::consul[]
+//end::eureka[]
 //tag::clazz[]
 interface BookInventoryClient extends BookInventoryOperations {
 

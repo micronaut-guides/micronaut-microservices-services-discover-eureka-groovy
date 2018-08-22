@@ -11,9 +11,9 @@ import io.reactivex.Flowable
 @Client("http://localhost:8081") // <1>
 //end::harcoded[]
 */
-//tag::consul[]
+//tag::eureka[]
 @Client(id = "bookcatalogue") // <1>
-//end::consul[]
+//end::eureka[]
 //tag::clazz[]
 interface BookCatalogueClient extends BookCatalogueOperations {
 
