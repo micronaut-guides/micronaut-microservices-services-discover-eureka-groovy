@@ -30,8 +30,10 @@ Write a test:
 include::{sourceDir}/bookcatalogue/src/test/groovy/example/micronaut/bookcatalogue/BooksControllerSpec.groovy[]
 ----
 
-<1> It is easy to create HTTP requests with a fluid API.
-<2> Parse easily JSON into Groovy objects.
+<1> Annotate the class with `@MicronautTest` to let Micronaut starts the embedded server and inject the beans. More info: https://micronaut-projects.github.io/micronaut-test/latest/guide/index.html[https://micronaut-projects.github.io/micronaut-test/latest/guide/index.html].
+<2> Inject the `HttpClient` bean in the application context.
+<3> It is easy to create HTTP requests with a fluid API.
+<4> Parse easily JSON into Groovy objects.
 
 Edit `application.yml`
 
