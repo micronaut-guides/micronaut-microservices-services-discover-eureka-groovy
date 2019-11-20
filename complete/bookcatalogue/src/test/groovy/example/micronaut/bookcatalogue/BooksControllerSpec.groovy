@@ -19,7 +19,7 @@ class BooksControllerSpec extends Specification {
     void "it is possible to retrieve books"() {
         when:
         HttpRequest request = HttpRequest.GET("/books") // <3>
-        List books = client.toBlocking().retrieve(request, Argument.listOf(Book)) // <3>
+        List books = client.toBlocking().retrieve(request, Argument.listOf(Book)) // <4>
 
         then:
         books.size() == 3
