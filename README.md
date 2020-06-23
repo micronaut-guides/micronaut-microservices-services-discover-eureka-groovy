@@ -1,4 +1,4 @@
 # Eureka and Micronaut - Microservices service discovery #
 
-Guide: http://guides.micronaut.io/micronaut-microservices-services-discover-eureka-groovy/guide/index.html
+[http://guides.micronaut.io/micronaut-microservices-services-discover-eureka-groovy/guide/index.html](https://github.com/micronaut-guides/micronaut-microservices-services-discover-eureka-groovy)
 
