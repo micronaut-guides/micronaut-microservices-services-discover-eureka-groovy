@@ -21,6 +21,7 @@ class BooksController {
     private Optional<BookInventory> bookInventoryByIsbn(String isbn) {
         if (isbn == "1491950358") {
             return Optional.of(new BookInventory(isbn, 4))
+
         } else if (isbn == "1680502395") {
             return Optional.of(new BookInventory(isbn, 0))
         }

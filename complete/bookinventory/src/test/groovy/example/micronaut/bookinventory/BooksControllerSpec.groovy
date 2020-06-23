@@ -15,7 +15,7 @@ class BooksControllerSpec extends Specification {
 
     @Inject
     @Client("/")
-    HttpClient client;
+    HttpClient client
 
     void "for a book with inventory true is returned"() {
         when:
