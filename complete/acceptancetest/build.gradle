@@ -17,7 +17,6 @@ dependencies {
         exclude group: "org.codehaus.groovy", module: "groovy-all"
     }
     testImplementation "io.micronaut:micronaut-http-client"
-    testImplementation "io.micronaut.security:micronaut-security-jwt"
 }
 
 // use JUnit 5 platform
