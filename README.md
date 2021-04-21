@@ -1,4 +1,1 @@
-# Eureka and Micronaut - Microservices service discovery #
-
-[http://guides.micronaut.io/micronaut-microservices-services-discover-eureka-groovy/guide/index.html](https://github.com/micronaut-guides/micronaut-microservices-services-discover-eureka-groovy)
-
+# This guide has been deprecated and moved to https://github.com/micronaut-projects/micronaut-guides-poc. Please open any issue or pull request in that repository.
